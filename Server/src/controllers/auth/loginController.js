@@ -1,7 +1,9 @@
+const e = require('express');
 const userModel = require('../../models/user.model.js');
 const loginController = async (req, res) => {
      const user = req.body;
-        userModel.getUserByAccount(user.account, (error, result) => {
+       await userModel.getUserByAccount(user.account , user.password,  (error, result) => {
+            console.log(result);    
             if(error) {
                 return res.status(500).json({
                     message: 'get user by account failed',
@@ -13,9 +15,12 @@ const loginController = async (req, res) => {
                     message: 'account not found'
                 })
             }
-            if(user.password !== result[0].password) {
+
+            
+            if(user.password !== result[0].password ) {
                 return res.status(401).json({
-                    message: 'password is incorrect'
+                    message: 'password is incorrect',
+                    error: error.message
                 })
             }
             return res.status(200).json({

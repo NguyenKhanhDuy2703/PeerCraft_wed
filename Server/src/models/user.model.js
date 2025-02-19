@@ -4,7 +4,7 @@ const userModel  =  {
     async createNewUser  ( newUser , cb) {
         const connection = await pool.getConnection();
         try {
-           const resutl =  await connection.query(createUser, [newUser.account, newUser.password, newUser.email, newUser.name, newUser.phone, newUser.address, newUser.role]);
+           const resutl =  await connection.query(createUser, [newUser.account, newUser.password, newUser.email]);
            cb(null, resutl)
         } catch (error) {
             cb(error, null)
@@ -12,10 +12,11 @@ const userModel  =  {
             connection.release();
         }
     },
-    async getUserByAccount (account, cb) {
+    async getUserByAccount (account, password , cb) {
+        const connection = await pool.getConnection();
         try {
-            const result = await connection.query(getUserByAccount, [account]);
-            cb(null, result)
+            const result = await connection.query(getUserByAccount, [account , password]);
+            cb(null, result[0])
         } catch (error) {
             cb(error, null)
         }finally {  

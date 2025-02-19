@@ -6,7 +6,7 @@ const registerController = async (req, res) => {
             if(error) {
                 return res.status(500).json({
                     message: 'create new user failed',
-                    error: error.message
+                    error: error
                 })
             }
             return res.status(200).json({

@@ -1,12 +1,47 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LuEyeClosed } from "react-icons/lu";
 import { useState } from "react";
 import { LuEye } from "react-icons/lu";
+import { login } from "../services/authServices";
 const LoginForm = () => {
   const [account , setAccount] = useState("");
   const [password , setPassword] = useState("");
   const [hidePassword , setHidePassword] = useState(true);
-
+  const [errors , setErrors] = useState({});
+  const [showSuccess , setShowSuccess] = useState(false);
+  const navigate = useNavigate();
+   const validate = () => {
+      let error = {};
+      if (account.trim() === "") {
+        error.account = "Account is required";
+      }
+      
+      if (password.trim().length < 6) {
+        error.password = "Password is more than 6 characters";
+      }
+      setErrors(error);
+    };
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      validate();
+      try {
+        if (Object.keys(errors).length === 0) {
+          const data = await login(account, password);
+          if (data) {
+            setShowSuccess(true);         
+            setTimeout(() => {
+              navigate('/')
+            }, 3000);
+        }
+        return data;
+      }
+      } catch (error) {
+        setShowSuccess(false);
+        console.log(error);
+        
+      }
+      
+    };
   return (
     <>
     <div className="flex justify-start  px-10 space-x-6  font-semibold text-gray-700  text-2xl">
@@ -56,7 +91,7 @@ const LoginForm = () => {
             Privacy Policy
           </Link>
         </p>
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">
+        <button onClick={handleLogin} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">
           Log in
         </button>
         <div className="mt-4 text-center">
@@ -69,6 +104,12 @@ const LoginForm = () => {
           <Link href="#" className="text-blue-500">
             Log in with magic link
           </Link>
+        </div>
+        <div
+          className={`fixed top-5 transition-all duration-500 ease-in-out z-50 p-3 bg-green-500 text-white rounded
+          ${showSuccess ? "right-5 opacity-100" : "-right-full opacity-0"}`}
+        >
+          Đăng nhập thành công!
         </div>
       </div>
     </>

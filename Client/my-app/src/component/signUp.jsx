@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate,  } from "react-router-dom";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { use, useEffect, useState } from "react";
 import { register } from "../services/authServices";
+
 
 const SignUpForm = () => {
   const [account, setAccount] = useState("");
@@ -10,6 +11,7 @@ const SignUpForm = () => {
   const [hidePassword, setHidePassword] = useState(true);
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
+  const navigate = useNavigate();
   const validate = () => {
     let error = {};
     if (account.trim() === "") {
@@ -29,15 +31,19 @@ const SignUpForm = () => {
     try {
       if (Object.keys(errors).length === 0) {
         const data = await register(account, gmail, password);
-        setShowSuccess(true);
-        return data;
+        if (data) {
+          setShowSuccess(true);         
+          setTimeout(() => {
+            navigate('/auth/login')
+          }, 3000);
       }
+    }
     } catch (error) {
       setShowSuccess(false);
       console.log(error);
       
     }
-    return null;
+
   };
 
 

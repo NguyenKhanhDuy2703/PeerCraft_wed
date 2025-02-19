@@ -1,5 +1,5 @@
-const createUser = `INSERT INTO peercaft.user(account , password , email, phone ) VALUES(?, ?, ?, ? )`
-const getUserByAccount = `SELECT * FROM peercaft.user WHERE account = ?`
+const createUser = `INSERT INTO peercraft.user(account , password , email ) VALUES(?, ?, ? )`
+const getUserByAccount = `SELECT * FROM peercraft.user WHERE account = ?`
 
 module.exports = {
     createUser ,
