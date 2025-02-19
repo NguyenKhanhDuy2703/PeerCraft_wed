@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { LuEyeClosed } from "react-icons/lu";
+import { useState } from "react";
+import { LuEye } from "react-icons/lu";
 const LoginForm = () => {
+  const [account , setAccount] = useState("");
+  const [password , setPassword] = useState("");
+  const [hidePassword , setHidePassword] = useState(true);
+
   return (
     <>
     <div className="flex justify-start  px-10 space-x-6  font-semibold text-gray-700  text-2xl">
@@ -12,6 +18,9 @@ const LoginForm = () => {
           <label className="block text-gray-600 mb-1">Email</label>
           <input
             type="text"
+            onChange={(e)=>{
+              setAccount(e.target.value);
+            }}
             placeholder="Enter your email address or username"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
           />
@@ -21,14 +30,16 @@ const LoginForm = () => {
           <div className="relative">
             <input
               type="text"
+              onChange={(e)=>{setPassword(e.target.value)}}
               placeholder="Enter your password"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg"
             />
             <button
               type="button"
               className="absolute right-3 top-3 text-gray-500"
+              onClick={()=>{setHidePassword( hidePassword => !hidePassword)}}
             >
-              <LuEyeClosed />{" "}
+             {hidePassword ? <LuEyeClosed /> : <LuEye />}
             </button>
           </div>
           <Link href="#" className="text-blue-500 text-sm float-right mt-3">

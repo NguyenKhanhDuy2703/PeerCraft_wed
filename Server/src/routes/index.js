@@ -1,6 +1,5 @@
+const auth = require('./auth.routes.js');
 function routes(app) {
-    app.get("/", (req, res) => {
-        res.send("Hello World");
-    });
+    app.use('/api/auth',auth );
 }
 module.exports = routes;
