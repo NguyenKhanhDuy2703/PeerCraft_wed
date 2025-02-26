@@ -1,4 +1,4 @@
-import { CiSearch } from "react-icons/ci";
+   import { CiSearch } from "react-icons/ci";
 
 const InputSearch = () =>{
     return (
@@ -6,7 +6,7 @@ const InputSearch = () =>{
          <input
           type="text" 
           placeholder="Search Flashcard ..." 
-            className="w-full bg-gray-600 pl-4 pr-4 py-2 border border-gray-700 rounded-lg medium w-full
+            className=" bg-gray-200 pl-4 pr-4 py-2 border border-gray-200 rounded-lg medium w-full
                         shadow-sm focus:outline-none focus:ring-2 
                         focus:ring-blue-600 focus:border-transparent"
           /> 
