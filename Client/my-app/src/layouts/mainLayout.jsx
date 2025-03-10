@@ -1,89 +1,37 @@
-import { Link, Outlet } from "react-router-dom";
-import InputSearch from "../component/input_search";
-import { FaPlus } from "react-icons/fa6";
+import { Outlet } from "react-router-dom";
+import Navbar from "../component/mainComponent/navBar";
+import Sidebar from "../component/mainComponent/sideBar";
+
 const MainLayout = () => {
   return (
-    <div className="main-layout flex flex-col  h-screen ">
-      <nav className="flex items-center bg-white p-4 shadow-md">
-        <div className="flex-3 font-bold text-lg">Logo</div>
-        <div className="flex-8 hidden lg:flex space-x-6 text-gray-700">
-          <Link href="home" className="hover:text-blue-500">
-            Trang chủ
-          </Link>
-          <Link href="#" className="hover:text-blue-500">
-            Diễn đàn
-          </Link>
-          <Link href="#" className="hover:text-blue-500">
-            Thư viện
-          </Link>
-          <Link href="#" className="hover:text-blue-500">
-            Roadmap
-          </Link>
-        </div>
-        <div className="flex-14 flex justify-center">
-          <InputSearch />
-        </div>
-        <div className="flex-2 text-right">
-          <img className="w-10 h-10 rounded-full bg-amber-400" />
-        </div>
-      </nav>
+    <div className="min-h-screen">
+      {/* Navbar */}
+      <div className="fixed top-0 left-0 w-full bg-white shadow-md z-10 p-4 flex items-center ">
+        <h2 className="flex-2 text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text ml-4">
+          PeerCraft
+        </h2>
 
-      <div className="flex ">
-        <div className="bg-gray-100 p-4 flex-1 h-screen border-r-1 border-gray-400">
-          <div className=" flex flex-col space-y-2 mb-4">
-            <div className="flex justify-between items-center text-gray-500 text-sm font-semibold mb-4">
-              <span> Diễn đàn </span>
-              <FaPlus className="w-4 h-4 cursor-pointer" />
-            </div>
-            <ul className="space-y-3">
-              <li
-                className={`flex items-center justify-between 
-             "font-bold" : "font-normal" } text-gray-800 cursor-pointer`}
-              >
-                <Link to="/forum">diễn đàn 1</Link>
-              
+        <div className="flex-8">
+          <Navbar />
+        </div>
+      </div>
 
-              </li>
-              <li
-                className={`flex items-center justify-between 
-             "font-bold" : "font-normal" } text-gray-800 cursor-pointer`}
-              >
-                <Link to="/forum">diễn đàn 2</Link>
-              
-
-              </li>
-            </ul>
-          </div>
-          <div className="flex flex-col space-y-2">
-            <div className="flex justify-between items-center text-gray-500 text-sm font-semibold mb-4">
-              <span> Dự án dã tham gia  </span>
-              <FaPlus className="w-4 h-4 cursor-pointer" />
-            </div>
-            <ul className="space-y-3">
-              <li
-                className={`flex items-center justify-between 
-             "font-bold" : "font-normal" } text-gray-800 cursor-pointer`}
-              >
-                <Link to="/forum">dự án 1</Link>
-              </li>
-              <li
-                className={`flex items-center justify-between 
-             "font-bold" : "font-normal" } text-gray-800 cursor-pointer`}
-              >
-                <Link to="/forum">dự án 2</Link>
-              </li>
-            </ul>
-          </div>
+      {/* Main Content */}
+      <div className="flex pt-20">
+        {/* Sidebar */}
+        <div className="fixed top-25 left-4 h-[92vh] w-64 bg-white shadow-lg rounded-xl z-10 overflow-hidden">
+          <Sidebar />
         </div>
 
-        <div className="flex-8 main-content">
+        {/* Main Page Content */}
+        <div className="flex-5 p-6   md:ml-72 transition-all duration-300">
           <Outlet />
         </div>
-        <div className="flex-2">
-          <div className="bg-gray-100 p-4 h-screen">Right sidebar</div>
-        </div>
+        {/* other activity */}
+        <div className="flex-2"></div>
       </div>
     </div>
   );
 };
+
 export default MainLayout;

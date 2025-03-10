@@ -1,7 +1,6 @@
 const userModel = require('../../models/user.model.js');
 const registerController = async (req, res) => { 
     const newUser = req.body;   
-    console.log(newUser);
     userModel.createNewUser(newUser, (error, result) => {
             if(error) {
                 return res.status(500).json({
@@ -15,6 +14,7 @@ const registerController = async (req, res) => {
             })
 
     });
+    
 
 }
 module.exports = registerController;  
